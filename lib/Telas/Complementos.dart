@@ -61,22 +61,16 @@ class _ComplementosState extends State<Complementos> {
       selecionado['id'] = id;
       setState(() {
         ComplementoSelecionado.add(selecionado);
-      });
-      setState(() {
         qtdComplemento = qtdComplemento - 1;
-        // print(qtdComplemento - ComplementoSelecionado.length);
       });
     } else {
       selecionado['id'] = id;
       setState(() {
         ComplementoSelecionado.remove(selecionado);
-      });
-      setState(() {
         qtdComplemento = qtdComplemento + 1;
-        // print(qtdComplemento - ComplementoSelecionado.length);
       });
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Teste(complemento),));
+    print(ComplementoSelecionado);
   }
 
   @override
