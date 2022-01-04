@@ -4,6 +4,7 @@ class ProdutoAcai {
   dynamic _preco;
   String _complemento;
   String _img;
+  int _quantidadeComplemento;
   int get idProduto => this._idProduto;
 
   set idProduto(int value) => this._idProduto = value;
@@ -23,4 +24,8 @@ class ProdutoAcai {
   get img => this._img;
 
   set img(value) => this._img = value;
+
+  get quantidadeComplemento => this._quantidadeComplemento;
+
+  set quantidadeComplemento(value) => this._quantidadeComplemento = value;
 }

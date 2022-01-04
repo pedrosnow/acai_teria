@@ -36,6 +36,7 @@ class _AcaiState extends State<Acai> {
       produtos.produto = item['produto'];
       produtos.preco = item['preco'];
       produtos.img = item['img'];
+      produtos.quantidadeComplemento = item['quantidade_complemento'];
       lista.add(produtos);
     }
 
@@ -156,7 +157,9 @@ class _AcaiState extends State<Acai> {
                                           produtoAcai.idProduto,
                                           produtoAcai.preco,
                                           produtoAcai.img,
-                                          produtoAcai.produto),
+                                          produtoAcai.produto,
+                                          produtoAcai.quantidadeComplemento,
+                                          produtoAcai.quantidadeComplemento),
                                     ),
                                   );
                                 },

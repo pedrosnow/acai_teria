@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:acai_teria/Models/Complemento.dart';
-import 'package:acai_teria/Telas/Teste.dart';
+import 'package:acai_teria/Telas/finalizacaoPedido.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -13,8 +13,11 @@ class Complementos extends StatefulWidget {
   dynamic preco;
   String img;
   String produto;
+  int qtdComplemento;
+  int qtdComplementoComparacao;
 
-  Complementos(this.id, this.preco, this.img, this.produto);
+  Complementos(this.id, this.preco, this.img, this.produto, this.qtdComplemento,
+      this.qtdComplementoComparacao);
 
   @override
   _ComplementosState createState() => _ComplementosState();
@@ -25,7 +28,6 @@ class _ComplementosState extends State<Complementos> {
   bool StatusBtn = true;
   List complemento = List();
   List ComplementoSelecionado = List();
-  int qtdComplemento = 4;
 
   Future<List<Complemento>> _getComplemento() async {
     var url = Uri.parse('https://phdeveloper.online/api/complementos');
@@ -55,22 +57,33 @@ class _ComplementosState extends State<Complementos> {
     }
   }
 
-  _verificarTamanho(id, value) {
+  _complemento(id, value, nome) {
     Map<String, dynamic> selecionado = Map();
     if (value == true) {
       selecionado['id'] = id;
+      selecionado['nome'] = nome;
       setState(() {
         ComplementoSelecionado.add(selecionado);
-        qtdComplemento = qtdComplemento - 1;
+        widget.qtdComplemento = widget.qtdComplemento - 1;
       });
     } else {
-      selecionado['id'] = id;
       setState(() {
-        ComplementoSelecionado.remove(selecionado);
-        qtdComplemento = qtdComplemento + 1;
+        ComplementoSelecionado.removeWhere((element) => element['id'] == id);
+        widget.qtdComplemento = widget.qtdComplemento + 1;
       });
     }
-    print(ComplementoSelecionado);
+    _verificarTamanhoArray();
+  }
+
+  _verificarTamanhoArray() {
+    if (ComplementoSelecionado.length == widget.qtdComplementoComparacao) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => finalizacaoPedido(),
+        ),
+      );
+    }
   }
 
   @override
@@ -145,10 +158,11 @@ class _ComplementosState extends State<Complementos> {
                                       Checkbox(
                                         value: complemento[index]['checked'],
                                         onChanged: (bool value) {
-                                          _verificarTamanho(
+                                          _complemento(
                                               complemento[index]
                                                   ['id_complemento'],
-                                              value);
+                                              value,
+                                              complemento[index]['nome']);
                                           setState(() {
                                             complemento[index]['checked'] =
                                                 value;
@@ -255,7 +269,7 @@ class _ComplementosState extends State<Complementos> {
                                       ),
                                     ),
                                     Text(
-                                      qtdComplemento.toString(),
+                                      widget.qtdComplemento.toString(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 4.w,
