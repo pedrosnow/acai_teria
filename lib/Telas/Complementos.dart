@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:acai_teria/Models/Complemento.dart';
-import 'package:acai_teria/Telas/finalizacaoPedido.dart';
+import 'package:acai_teria/Telas/FinalizacaoPedido.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -80,7 +80,7 @@ class _ComplementosState extends State<Complementos> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => finalizacaoPedido(),
+          builder: (context) => FinalizacaoPedido(),
         ),
       );
     }
